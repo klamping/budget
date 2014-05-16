@@ -1,0 +1,30 @@
+{
+  "name": "budget",
+  "version": "0.0.0",
+  "description": "Simple angular based budget app",
+  "main": "src/index.html",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/klamping/budget.git"
+  },
+  "author": "Kevin Lamping",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/klamping/budget/issues"
+  },
+  "homepage": "https://github.com/klamping/budget",
+  "dependencies": {
+    "angularjs": "0.0.1",
+    "moment": "~2.6.0",
+    "pure": "~2.67.0",
+    "angular-ui-router": "~0.2.10"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "load-grunt-tasks": "~0.4.0",
+    "glob": "~3.2.9"
+  }
+}

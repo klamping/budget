@@ -6,10 +6,15 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.swp
+*.swo
+.DS_Store
 
 pids
 logs
 results
 
-npm-debug.log
 node_modules
+npm-debug.log
+
+bower_components
