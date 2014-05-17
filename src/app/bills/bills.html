@@ -1,0 +1,18 @@
+<h2>Bills</h2>
+
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th scope="col">Bill</th>
+            <th scope="col" ng-repeat-start="month in months">{{ month | date:'MM yyyy' }}</th>
+            <th scope="col" ng-repeat-end>Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="bill in bills">
+            <th scope="row">{{ bill.name }}</th>
+            <td ng-repeat-start="month in months">{{ bill.months[month].amount | currency }}</td>
+            <td ng-repeat-end><input type="checkbox" ng-model="bill.months[month].paid" ng-if="bill.months[month]"/></td>
+        </tr>
+    </tbody>
+</table>

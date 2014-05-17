@@ -1,0 +1,24 @@
+<h2>Transactions</h2>
+
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Date</th>
+            <th scope="col">Account</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Reviewed</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="transaction in transactions">
+            <th scope="row">{{ transaction.name }}</th>
+            <td>{{ transaction.category }}</td>
+            <td>{{ transaction.timestamp | date:'short' }}</td>
+            <td>{{ transaction.account }}</td>
+            <td>{{ transaction.amount | currency }}</td>
+            <td><input type="checkbox" ng-model="transaction.reviewed" /></td>
+        </tr>
+    </tbody>
+</table>
