@@ -15,10 +15,17 @@
         <tr ng-repeat="transaction in transactions">
             <th scope="row">{{ transaction.name }}</th>
             <td>{{ transaction.category }}</td>
-            <td>{{ transaction.timestamp | date:'short' }}</td>
+            <td>{{ transaction.date | date:'short' }}</td>
             <td>{{ transaction.account }}</td>
             <td>{{ transaction.amount | currency }}</td>
             <td><input type="checkbox" ng-model="transaction.reviewed" /></td>
         </tr>
     </tbody>
 </table>
+
+<h3>Import Transactions</h3>
+
+<form method="post" action="/transactions" enctype="multipart/form-data">
+    <input type="file" name="newTransactions" />
+    <button type="submit">Import</button>
+</form>

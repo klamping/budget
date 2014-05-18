@@ -1,4 +1,4 @@
-angular.module('budget', ['ui.router'])
+angular.module('budget', ['ui.router', 'budget.transactions'])
 .config(function($stateProvider, $urlRouterProvider) {
     // For any unmatched url, redirect to /transactions
     $urlRouterProvider.otherwise('/overview');
@@ -11,8 +11,11 @@ angular.module('budget', ['ui.router'])
         .state('overview.transactions', {
             url: '/transactions',
             templateUrl: '/app/transactions/transactions.html',
-            controller: function ($scope) {
-                $scope.transactions = budgetJson.transactions;
+            controller: 'transactionsCtrl',
+            resolve: {
+                transactions: function (transactionsSvc) {
+                    return transactionsSvc.get();
+                }
             }
         })
         .state('overview.bills', {

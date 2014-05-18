@@ -1,14 +1,4 @@
 var budgetJson = {
-    'transactions': [
-        {
-            'category': 'my category',
-            'name': 'Amazon',
-            'amount': 107.50,
-            'timestamp': 1223344223451,
-            'account': 'K7CC',
-            'reviewed': false
-        }
-    ],
     'bills': [
         {
             'name': 'Rent',
