@@ -14,13 +14,26 @@
     <tbody>
         <tr ng-repeat="transaction in transactions">
             <th scope="row">{{ transaction.name }}</th>
-            <td>{{ transaction.category }}</td>
+            <td>
+                {{ transaction.category }}
+                <select ng-model="transaction.category">
+                    <option ng-repeat="category in categories" value="{{category.name}}">{{ category.name }}</option>
+                </select>
+            </td>
             <td>{{ transaction.date | date:'short' }}</td>
-            <td>{{ transaction.account }}</td>
+            <td>
+                <select ng-model="transaction.account" ng-options="account as account for account in accounts"></select>
+            </td>
             <td>{{ transaction.amount | currency }}</td>
-            <td><input type="checkbox" ng-model="transaction.reviewed" /></td>
+            <td><input type="checkbox" ng-model="transaction.reviewed" ng-click="review(transaction)"/></td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">Running Balance</td>
+            <td>{{ currentBalance }}</td>
+        </tr>
+    </tfoot>
 </table>
 
 <h3>Import Transactions</h3>

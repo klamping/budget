@@ -25,7 +25,9 @@
     "express-livereload": "0.0.24",
     "angular-resource": "~0.1.1",
     "jsonfile": "~1.1.1",
-    "csv": "~0.3.7"
+    "csv": "~0.3.7",
+    "firebase": "~1.0.15-3",
+    "lodash": "~2.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

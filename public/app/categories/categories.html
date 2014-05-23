@@ -1,0 +1,25 @@
+<h2>Categories</h2>
+
+<h3>Saving vs. Spending</h3>
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th scope="col">Category</th>
+            <th scope="col" ng-repeat-start="month in months">{{ month | date:'MM yyyy' }} Savings</th>
+            <th scope="col" ng-repeat-end>Spent</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="category in categories">
+            <th scope="row" ng-bind="category.name"></th>
+            <td ng-repeat-start="month in months" ng-bind="category.months[month].savings | currency"></td>
+            <td ng-repeat-end ng-bind="calcSpending(category.name, month)"></td>
+        </tr>
+    </tbody>
+</table>
+
+<label>
+    Category Name:
+    <input type="text" ng-model="catName" />
+</label>
+<button ng-click="addCategory()">Add Category</button>

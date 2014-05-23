@@ -1,24 +1,17 @@
 /* jshint node:true */
 var livereload = require('express-livereload');
 
-var fs = require('fs');
-var jf = require('jsonfile');
-
 var express = require('express');
 var app = express();
 
 var csv = require('csv');
+var _ = require('lodash');
 
-var transactionsFile = './server/data/transactions.json';
+var Firebase = require('firebase');
+var fireRef = new Firebase('https://vinlam-budget.firebaseio.com/');
 
 app.use(express.static('public'));
 app.use(express.bodyParser());
-
-app.get('/transactions', function(req, res) {
-    jf.readFile(transactionsFile, function (err, data) {
-        res.send(data);
-    });
-});
 
 app.post('/transactions', function(req, res) {
     var importFile = req.files.newTransactions;
@@ -29,16 +22,17 @@ app.post('/transactions', function(req, res) {
         delimiter: ','
     })
     .to.array(function (importedData){
-        jf.readFile(transactionsFile, function (err, data) {
-            var allData = data.concat(importedData);
-
-            jf.writeFile(transactionsFile, allData, function () {
-                res.send(allData);
-            });
+        var transactions = fireRef.child('transactions');
+        _.each(importedData, function (data) {
+            delete data.blankA;
+            delete data.blankB;
+            delete data.posted;
+            transactions.push(data);
         });
-        // remove first two columns
+
+        res.send(200);
     }, {
-        columns: ['posted', 'blank', 'date', 'blank', 'name', 'category', 'amount']
+        columns: ['posted', 'blankA', 'date', 'blankB', 'name', 'category', 'amount']
     });
 });
 

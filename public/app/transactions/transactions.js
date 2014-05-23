@@ -1,13 +1,7 @@
-angular.module('budget.transactions', ['ngResource'])
-.controller('transactionsCtrl', function ($scope, transactions, transactionsSvc) {
-    $scope.transactions = transactions;
-})
-.service('transactionsSvc', function ($resource) {
-    var transactions = $resource('/transactions/', null, {
-        'get': {
-            isArray: true
-        }
-    });
+angular.module('budget.transactions', [])
+.controller('transactionsCtrl', function ($scope, transactions, accounts, categories) {
+    transactions.$bind($scope, 'transactions');
+    $scope.categories = categories;
 
-    return transactions;
+    $scope.accounts = accounts;
 });
