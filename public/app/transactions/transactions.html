@@ -17,7 +17,7 @@
             <td>
                 {{ transaction.category }}
                 <select ng-model="transaction.category">
-                    <option ng-repeat="category in categories" value="{{category.name}}">{{ category.name }}</option>
+                    <option ng-repeat="category in categories" value="{{category.name}}" ng-selected="category.name == transaction.category">{{ category.name }}</option>
                 </select>
             </td>
             <td>{{ transaction.date | date:'short' }}</td>

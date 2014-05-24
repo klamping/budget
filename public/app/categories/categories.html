@@ -5,15 +5,17 @@
     <thead>
         <tr>
             <th scope="col">Category</th>
-            <th scope="col" ng-repeat-start="month in months">{{ month | date:'MM yyyy' }} Savings</th>
-            <th scope="col" ng-repeat-end>Spent</th>
+            <th scope="col" ng-repeat-start="month in months">{{ month.format("MMM YYYY") }} Savings</th>
+            <th scope="col" ng-repeat-end>{{ month.format("MMM") }} Spending</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="category in categories">
             <th scope="row" ng-bind="category.name"></th>
-            <td ng-repeat-start="month in months" ng-bind="category.months[month].savings | currency"></td>
-            <td ng-repeat-end ng-bind="calcSpending(category.name, month)"></td>
+            <td ng-repeat-start="month in months">
+                <input ng-model="category.months[month.month()].savings" size="5" />
+            </td>
+            <td ng-repeat-end ng-bind="calcSpending(category.name, month) | currency"></td>
         </tr>
     </tbody>
 </table>
