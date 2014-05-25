@@ -2,9 +2,18 @@ angular.module('budget.categories', [])
 .controller('categoriesCtrl', function ($scope, transactions, categories) {
     categories.$bind($scope, 'categories');
 
-    var today = moment();
+    $scope.today = moment();
 
-    $scope.months = [today, today.clone().subtract('months', 1), today.clone().subtract('months', 2)];
+    var getMonths = function (date) {
+        return [date, date.clone().subtract('months', 1), date.clone().subtract('months', 2)];
+    };
+
+    $scope.$watch(function () {
+        return $scope.today.month();
+    }, function () {
+        $scope.months = getMonths($scope.today);
+    });
+
     $scope.transactions = transactions;
 
     $scope.calcSpending = function (name, month) {

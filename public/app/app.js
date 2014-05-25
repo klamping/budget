@@ -1,4 +1,4 @@
-angular.module('budget', ['firebase', 'ui.router', 'budget.transactions', 'budget.bills', 'budget.categories'])
+angular.module('budget', ['firebase', 'ui.router', 'ui.bootstrap', 'budget.transactions', 'budget.bills', 'budget.categories'])
 .config(function($stateProvider, $urlRouterProvider) {
     // For any unmatched url, redirect to /transactions
     $urlRouterProvider.otherwise('/overview');

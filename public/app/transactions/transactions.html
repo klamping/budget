@@ -15,7 +15,7 @@
         <tr ng-repeat="transaction in transactions">
             <th scope="row">{{ transaction.name }}</th>
             <td>
-                {{ transaction.category }}
+                <span ng-if="!transaction.reviewed">{{ transaction.category }}</span>
                 <select ng-model="transaction.category">
                     <option ng-repeat="category in categories" value="{{category.name}}" ng-selected="category.name == transaction.category">{{ category.name }}</option>
                 </select>
@@ -25,7 +25,7 @@
                 <select ng-model="transaction.account" ng-options="account as account for account in accounts"></select>
             </td>
             <td>{{ transaction.amount | currency }}</td>
-            <td><input type="checkbox" ng-model="transaction.reviewed" ng-click="review(transaction)"/></td>
+            <td><input type="checkbox" ng-model="transaction.reviewed" /></td>
         </tr>
     </tbody>
     <tfoot>
