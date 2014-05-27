@@ -14,6 +14,8 @@ app.use(express.static('public'));
 app.use(express.bodyParser());
 
 app.post('/transactions', function(req, res) {
+    var account = req.param('account');
+
     var importFile = req.files.newTransactions;
 
     // read the file
@@ -27,6 +29,7 @@ app.post('/transactions', function(req, res) {
             delete data.blankA;
             delete data.blankB;
             delete data.posted;
+            data.account = account;
             transactions.push(data);
         });
 

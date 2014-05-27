@@ -2,8 +2,8 @@
 
 <h3>Saving vs. Spending</h3>
 
-<button ng-click="today.subtract('month', 1)">Prev Month</button>
-<button ng-click="today.add('month', 1)">Next Month</button>
+<button ng-click="startMonth.subtract('month', 1)">Prev Month</button>
+<button ng-click="startMonth.add('month', 1)">Next Month</button>
 <table class="pure-table">
     <thead>
         <tr>
@@ -21,6 +21,13 @@
             <td ng-repeat-end ng-bind="calcSpending(category.name, month) | currency"></td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <th scope="row">Monthly Net Total</th>
+            <th scope="col" ng-repeat-start="month in months">{{monthySavings(month)}}</th>
+            <th scope="col" ng-repeat-end>{{monthySpending(month)}}</th>
+        </tr>
+    </tfoot>
 </table>
 
 <label>

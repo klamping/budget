@@ -1,18 +1,29 @@
 <h2>Transactions</h2>
 
+<button ng-click="setRange(30)">Last 30 days</button>
+<button ng-click="setRange(60)">Last 60 days</button>
+<button ng-click="setRange(90)">Last 90 days</button>
+<button ng-click="setRange('month')">This Month</button>
+<button ng-click="setRange('year')">This Year</button>
+
+<label>
+    Filter:
+    <input type="text" ng-model="filterText" />
+</label>
+
 <table class="pure-table">
     <thead>
         <tr>
-            <th scope="col">Description</th>
-            <th scope="col">Category</th>
-            <th scope="col">Date</th>
-            <th scope="col">Account</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Reviewed</th>
+            <th scope="col">Name <button ng-click="sortCol('name')">Sort</button></th>
+            <th scope="col">Category <button ng-click="sortCol('category')">Sort</button></th>
+            <th scope="col">Date <button ng-click="sortCol('date')">Sort</button></th>
+            <th scope="col">Account <button ng-click="sortCol('account')">Sort</button></th>
+            <th scope="col">Amount <button ng-click="sortCol('amount')">Sort</button></th>
+            <th scope="col">Reviewed <button ng-click="sortCol('reviewed')">Sort</button></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="transaction in transactions">
+        <tr ng-repeat="transaction in transactions | orderByPriority | orderBy:predicate:reverse | filter:filterText | filter:inRange">
             <th scope="row">{{ transaction.name }}</th>
             <td>
                 <span ng-if="!transaction.reviewed">{{ transaction.category }}</span>
@@ -22,7 +33,8 @@
             </td>
             <td>{{ transaction.date | date:'short' }}</td>
             <td>
-                <select ng-model="transaction.account" ng-options="account as account for account in accounts"></select>
+                {{ transaction.account }}
+                <!-- <select ng-model="transaction.account" ng-options="account as account for account in accounts"></select> -->
             </td>
             <td>{{ transaction.amount | currency }}</td>
             <td><input type="checkbox" ng-model="transaction.reviewed" /></td>
@@ -40,5 +52,8 @@
 
 <form method="post" action="/transactions" enctype="multipart/form-data">
     <input type="file" name="newTransactions" />
+    <select name="account">
+        <option ng-repeat="account in accounts" value="{{account}}">{{account}}</option>
+    </select>
     <button type="submit">Import</button>
 </form>
