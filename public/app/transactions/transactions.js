@@ -41,4 +41,35 @@ angular.module('budget.transactions', [])
         // Make sure date is after start date and before end date
         return date.isAfter($scope.startDate) && date.isBefore($scope.endDate);
     };
+
+    $scope.deleteTransaction = function (transaction) {
+        if (confirm('Delete?')) {
+            // console.log(transaction);
+            transactions.$remove(transaction.$id);
+        }
+    };
+
+    // $scope.importTransactions = function () {
+    //     var importFile = req.files.newTransactions;
+
+    //     // read the file
+    //     csv()
+    //     .from.path(importFile.path, {
+    //         delimiter: ','
+    //     })
+    //     .to.array(function (importedData){
+    //         var transactions = fireRef.child('transactions');
+    //         _.each(importedData, function (data) {
+    //             delete data.blankA;
+    //             delete data.blankB;
+    //             delete data.posted;
+    //             data.account = account;
+    //             transactions.push(data);
+    //         });
+
+    //         res.send(200);
+    //     }, {
+    //         columns: ['posted', 'blankA', 'date', 'blankB', 'name', 'category', 'amount']
+    //     });
+    // };
 });

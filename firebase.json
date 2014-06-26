@@ -1,0 +1,9 @@
+{
+  "firebase": "vinlam-budget",
+  "public": "public",
+  "ignore": [
+    "firebase.json",
+    ".*",
+    "**/node_modules/**"
+  ]
+}

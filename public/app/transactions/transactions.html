@@ -14,6 +14,7 @@
 <table class="pure-table">
     <thead>
         <tr>
+            <th scope="col">Remove</th>
             <th scope="col">Name <button ng-click="sortCol('name')">Sort</button></th>
             <th scope="col">Category <button ng-click="sortCol('category')">Sort</button></th>
             <th scope="col">Date <button ng-click="sortCol('date')">Sort</button></th>
@@ -24,6 +25,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="transaction in transactions | orderByPriority | orderBy:predicate:reverse | filter:filterText | filter:inRange">
+            <th><button ng-click="deleteTransaction(transaction)">x</button></th>
             <th scope="row">{{ transaction.name }}</th>
             <td>
                 <span ng-if="!transaction.reviewed">{{ transaction.category }}</span>
