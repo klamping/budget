@@ -4,7 +4,10 @@
 <button ng-click="setRange(60)">Last 60 days</button>
 <button ng-click="setRange(90)">Last 90 days</button>
 <button ng-click="setRange('month')">This Month</button>
+<button ng-click="setRange('months', -1)">Previous Month</button>
+<button ng-click="setRange('months', 1)">Next Month</button>
 <button ng-click="setRange('year')">This Year</button>
+<button ng-click="showReviewed = !showReviewed">{{ showReviewed ? 'Hide' : 'Show'  }} reviewed</button>
 
 <label>
     Filter:
@@ -24,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="transaction in transactions | orderByPriority | orderBy:predicate:reverse | filter:filterText | filter:inRange">
+        <tr ng-repeat="transaction in transactions | orderByPriority | orderBy:predicate:reverse | filter:filterText | filter:inRange" ng-if="!transaction.reviewed || showReviewed">
             <th><button ng-click="deleteTransaction(transaction)">x</button></th>
             <th scope="row">{{ transaction.name }}</th>
             <td>
@@ -39,7 +42,11 @@
                 <!-- <select ng-model="transaction.account" ng-options="account as account for account in accounts"></select> -->
             </td>
             <td>{{ transaction.amount | currency }}</td>
-            <td><input type="checkbox" ng-model="transaction.reviewed" /></td>
+            <td>
+                <label class="reviewed-item">
+                    <input type="checkbox" ng-model="transaction.reviewed" />
+                </label>
+            </td>
         </tr>
     </tbody>
     <tfoot>

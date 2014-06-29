@@ -7,6 +7,7 @@ angular.module('budget.transactions', [])
 
     $scope.reverse = true;
     $scope.predicate = 'date';
+    $scope.showReviewed = true;
 
     $scope.sortCol = function (predicate) {
         if ($scope.predicate == predicate) {
@@ -25,11 +26,20 @@ angular.module('budget.transactions', [])
 
     // show that last 30 days by default
     $scope.startDate = getStartDate(30);
-    $scope.endDate = today;
+    $scope.endDate = moment(today);
 
-    $scope.setRange = function (range) {
+    $scope.setRange = function (range, direction) {
         if (!_.isNumber(range)) {
-            $scope.startDate = moment(today).startOf(range);
+            // if a 'month' or 'year', we go to the start of it
+            $scope.startDate = $scope.startDate.startOf(range);
+
+            if (_.isNumber(direction)) {
+                var method = direction > 0 ? 'add' : 'subtract';
+
+                $scope.startDate[method](range, 1);
+            }
+
+            $scope.endDate = moment($scope.startDate).endOf(range);
         } else {
             $scope.startDate = getStartDate(range);
         }
