@@ -1,3 +1,24 @@
+body {
+    padding: 1em;
+    background: #eee;
+    color: #333;
+}
+.site-container {
+    background: #fafafa;
+    padding: 1em;
+}
+
+button {
+    border: 1px solid #369;
+    border-radius: 2px;
+    background: #0078e7;
+    color: #fff;
+}
+button:hover,
+button:focus {
+    background: #09e;
+}
+
 table tr:hover {
     background: #eee;
 }
@@ -13,4 +34,12 @@ table td {
     left: 0;
     right: 0;
     cursor: pointer;
+}
+
+.transaction-delete {
+    padding: 0;
+}
+
+.transaction-name {
+    text-align: left;
 }

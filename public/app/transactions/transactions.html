@@ -3,22 +3,33 @@
 <button ng-click="setRange(30)">Last 30 days</button>
 <button ng-click="setRange(60)">Last 60 days</button>
 <button ng-click="setRange(90)">Last 90 days</button>
+
+<hr>
+
+
 <button ng-click="setRange('month')">This Month</button>
 <button ng-click="setRange('months', -1)">Last Month</button>
-Current Month: {{ startDate.format('MMM') }}
 <button ng-click="setRange('months', 1)">Next Month</button>
 <button ng-click="setRange('year')">This Year</button>
-<button ng-click="showReviewed = !showReviewed">{{ showReviewed ? 'Hide' : 'Show'  }} reviewed</button>
+
+Current Month: {{ startDate.format('MMM') }}
+
+
+<hr>
 
 <label>
     Filter:
     <input type="text" ng-model="filterText" />
 </label>
 
+<button ng-click="showReviewed = !showReviewed">{{ showReviewed ? 'Hide' : 'Show'  }} reviewed</button>
+
+<hr>
+
 <table class="pure-table">
     <thead>
         <tr>
-            <th scope="col">Remove</th>
+            <th scope="col">Del</th>
             <th scope="col">Name <button ng-click="sortCol('name')">Sort</button></th>
             <th scope="col">Category <button ng-click="sortCol('category')">Sort</button></th>
             <th scope="col">Date <button ng-click="sortCol('date')">Sort</button></th>
@@ -29,21 +40,21 @@ Current Month: {{ startDate.format('MMM') }}
     </thead>
     <tbody>
         <tr ng-repeat="transaction in transactions | orderByPriority | orderBy:predicate:reverse | filter:filterText | filter:inRange" ng-if="!transaction.reviewed || showReviewed">
-            <th><button ng-click="deleteTransaction(transaction)">x</button></th>
-            <th scope="row">{{ transaction.name }}</th>
-            <td>
+            <td class="transaction-delete"><button ng-click="deleteTransaction(transaction)">x</button></td>
+            <th scope="row"  class="transaction-name">{{ transaction.name }}</th>
+            <td class="transaction-category">
                 <span ng-if="!transaction.reviewed">{{ transaction.category }}</span>
                 <select ng-model="transaction.category">
                     <option ng-repeat="category in categories" value="{{category.name}}" ng-selected="category.name == transaction.category">{{ category.name }}</option>
                 </select>
             </td>
-            <td>{{ transaction.date | date:'short' }}</td>
-            <td>
+            <td class="transaction-date">{{ transaction.date | date:'short' }}</td>
+            <td class="transaction-account">
                 {{ transaction.account }}
                 <!-- <select ng-model="transaction.account" ng-options="account as account for account in accounts"></select> -->
             </td>
-            <td>{{ transaction.amount | currency }}</td>
-            <td>
+            <td class="transaction-amount">{{ transaction.amount | currency }}</td>
+            <td class="transaction-reviewed">
                 <label class="reviewed-item">
                     <input type="checkbox" ng-model="transaction.reviewed" />
                 </label>
