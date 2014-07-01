@@ -7,12 +7,12 @@ angular.module('budget.categories', ['firebase'])
     // convert transactions to categorical spending
     // $scope.budgeted = _.indexBy($scope.transactions, 'category');
 
-    $scope.transByMonth;
+    var transByMonth;
 
     transactions.$on('loaded', function (transactions) {
         var byCats = _.groupBy(transactions, 'category');
 
-        $scope.transByMonth = _.each(byCats, function (transactions, category) {
+        transByMonth = _.each(byCats, function (transactions, category) {
             byCats[category] = _.groupBy(transactions, function (transaction) {
                 return moment(transaction.date).startOf('month').unix();
             });
@@ -39,11 +39,11 @@ angular.module('budget.categories', ['firebase'])
 
     $scope.calcSpending = function (category, month) {
         // if no transactions for this category, just return 0;
-        if (_.isUndefined($scope.transByMonth[category])) {
+        if (_.isUndefined(transByMonth[category])) {
             return 0;
         }
 
-        var monthlyTransactions = $scope.transByMonth[category][month.unix()];
+        var monthlyTransactions = transByMonth[category][month.unix()];
 
         // TODO store this in the array so it doesn't have to get re-calced for total monthly spending
         var totalSpending = _.reduce(monthlyTransactions, function(sum, transaction) {

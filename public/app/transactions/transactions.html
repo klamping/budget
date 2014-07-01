@@ -4,7 +4,8 @@
 <button ng-click="setRange(60)">Last 60 days</button>
 <button ng-click="setRange(90)">Last 90 days</button>
 <button ng-click="setRange('month')">This Month</button>
-<button ng-click="setRange('months', -1)">Previous Month</button>
+<button ng-click="setRange('months', -1)">Last Month</button>
+Current Month: {{ startDate.format('MMM') }}
 <button ng-click="setRange('months', 1)">Next Month</button>
 <button ng-click="setRange('year')">This Year</button>
 <button ng-click="showReviewed = !showReviewed">{{ showReviewed ? 'Hide' : 'Show'  }} reviewed</button>
