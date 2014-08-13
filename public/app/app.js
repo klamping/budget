@@ -23,14 +23,9 @@ angular.module('budget', ['firebase', 'ui.router', 'ui.bootstrap', 'budget.trans
             url: '/overview',
             templateUrl: '/app/overview/overview.html',
             resolve: {
-                transactions: function ($firebase) {
-                    return $firebase(fireRef.child('transactions'));
-                },
-                categories: function ($firebase) {
-                    return $firebase(fireRef.child('categories'));
-                },
-                bills: function ($firebase) {
-                    return $firebase(fireRef.child('bills'));
+                data: function ($firebase) {
+                    var sync = $firebase(fireRef).$asObject();
+                    return sync.$loaded();
                 }
             }
         })

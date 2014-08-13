@@ -1,23 +1,16 @@
 angular.module('budget.categories', ['firebase'])
-.controller('categoriesCtrl', function ($scope, transactions, categories, $filter) {
-    categories.$bind($scope, 'categories');
+.controller('categoriesCtrl', function ($scope, data) {
+    data.$bindTo($scope, 'data');
 
-    $scope.transactions = transactions;
-
-    // convert transactions to categorical spending
-    // $scope.budgeted = _.indexBy($scope.transactions, 'category');
-
-    var transByMonth;
-
-    transactions.$on('loaded', function (transactions) {
-        var byCats = _.groupBy(transactions, 'category');
-
-        transByMonth = _.each(byCats, function (transactions, category) {
-            byCats[category] = _.groupBy(transactions, function (transaction) {
-                return moment(transaction.date).startOf('month').unix();
-            });
+    var groupTransactionsByMonth = function (transactions, category) {
+        byCats[category] = _.groupBy(transactions, function (transaction) {
+            return moment(transaction.date).startOf('month').unix();
         });
-    });
+    };
+
+    var byCats = _.groupBy(data.transactions, 'category');
+
+    var transByMonth = _.each(byCats, groupTransactionsByMonth);
 
     var getMonths = function (date) {
         var numMonths = 5;

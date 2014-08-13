@@ -29,23 +29,22 @@ Current Month: {{ startDate.format('MMM') }}
 <table class="pure-table">
     <thead>
         <tr>
-            <th scope="col">Del</th>
             <th scope="col">Name <button ng-click="sortCol('name')">Sort</button></th>
             <th scope="col">Category <button ng-click="sortCol('category')">Sort</button></th>
             <th scope="col">Date <button ng-click="sortCol('date')">Sort</button></th>
             <th scope="col">Account <button ng-click="sortCol('account')">Sort</button></th>
             <th scope="col">Amount <button ng-click="sortCol('amount')">Sort</button></th>
             <th scope="col">Reviewed <button ng-click="sortCol('reviewed')">Sort</button></th>
+            <th scope="col">Del</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="transaction in transactions | orderByPriority | orderBy:predicate:reverse | filter:filterText | filter:inRange" ng-if="!transaction.reviewed || showReviewed">
-            <td class="transaction-delete"><button ng-click="deleteTransaction(transaction)">x</button></td>
+        <tr ng-repeat="transaction in data.transactions |  orderBy:predicate:reverse | filter:filterText | filter:inRange" ng-if="!transaction.reviewed || showReviewed">
             <th scope="row"  class="transaction-name">{{ transaction.name }}</th>
             <td class="transaction-category">
                 <span ng-if="!transaction.reviewed">{{ transaction.category }}</span>
                 <select ng-model="transaction.category">
-                    <option ng-repeat="category in categories" value="{{category.name}}" ng-selected="category.name == transaction.category">{{ category.name }}</option>
+                    <option ng-repeat="category in data.categories" value="{{category.name}}" ng-selected="category.name == transaction.category">{{ category.name }}</option>
                 </select>
             </td>
             <td class="transaction-date">{{ transaction.date | date:'short' }}</td>
@@ -59,6 +58,7 @@ Current Month: {{ startDate.format('MMM') }}
                     <input type="checkbox" ng-model="transaction.reviewed" />
                 </label>
             </td>
+            <td class="transaction-delete"><button ng-click="deleteTransaction(transaction)">x</button></td>
         </tr>
     </tbody>
     <!-- <tfoot>

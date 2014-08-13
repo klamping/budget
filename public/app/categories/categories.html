@@ -9,11 +9,11 @@
         <tr>
             <th scope="col">Category</th>
             <th scope="col" ng-repeat-start="month in months">{{ month.format("MMM YYYY") }} Savings</th>
-            <th scope="col" ng-repeat-end>{{ month.format("MMM") }} Spending</th>
+            <th scope="col" ng-repeat-end>{{ month.format("MMM") }} Balance</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="category in categories">
+        <tr ng-repeat="category in data.categories">
             <th scope="row" ng-bind="category.name"></th>
             <td ng-repeat-start="month in months">
                 <input ng-model="category.savings[month.year() + '' + month.month()]" size="5" />

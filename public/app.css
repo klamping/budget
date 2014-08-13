@@ -43,3 +43,16 @@ table td {
 .transaction-name {
     text-align: left;
 }
+
+
+.arrow {
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+}
+.arrow-up {
+    border-bottom-color: #0078e7;
+}
+.arrow-down {
+    border-top-color: #0078e7;
+}
