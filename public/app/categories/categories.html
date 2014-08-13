@@ -1,10 +1,13 @@
 <h2>Categories</h2>
 
-<h3>Saving vs. Spending</h3>
+<h3 class="left">Saving vs. Spending</h3>
 
-<button ng-click="startMonth.subtract('month', 1)">Prev Month</button>
-<button ng-click="startMonth.add('month', 1)">Next Month</button>
-<table class="pure-table">
+<div class="right">
+    <button ng-click="startMonth.subtract('month', 1)">&larr; Prev Month</button>
+    <button ng-click="startMonth.add('month', 1)">Next Month &rarr;</button>
+</div>
+
+<table class="pure-table clear">
     <thead>
         <tr>
             <th scope="col">Category</th>
@@ -13,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="category in data.categories">
+        <tr ng-repeat="category in categories">
             <th scope="row" ng-bind="category.name"></th>
             <td ng-repeat-start="month in months">
                 <input ng-model="category.savings[month.year() + '' + month.month()]" size="5" />

@@ -1,6 +1,6 @@
 angular.module('budget.categories', ['firebase'])
-.controller('categoriesCtrl', function ($scope, data) {
-    data.$bindTo($scope, 'data');
+.controller('categoriesCtrl', function ($scope, transactions, categories) {
+    $scope.categories = categories;
 
     var groupTransactionsByMonth = function (transactions, category) {
         byCats[category] = _.groupBy(transactions, function (transaction) {
@@ -8,7 +8,7 @@ angular.module('budget.categories', ['firebase'])
         });
     };
 
-    var byCats = _.groupBy(data.transactions, 'category');
+    var byCats = _.groupBy(transactions, 'category');
 
     var transByMonth = _.each(byCats, groupTransactionsByMonth);
 

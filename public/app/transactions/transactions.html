@@ -1,51 +1,50 @@
-<h2>Transactions</h2>
-
-<button ng-click="setRange(30)">Last 30 days</button>
-<button ng-click="setRange(60)">Last 60 days</button>
-<button ng-click="setRange(90)">Last 90 days</button>
-
-<hr>
-
-
-<button ng-click="setRange('month')">This Month</button>
-<button ng-click="setRange('months', -1)">Last Month</button>
-<button ng-click="setRange('months', 1)">Next Month</button>
-<button ng-click="setRange('year')">This Year</button>
-
-Current Month: {{ startDate.format('MMM') }}
+<h2>Transactions
+    <span ng-if="startDate.month() == endDate.month()">
+        for {{ startDate.format('MMMM YYYY') }}
+    </span>
+    <span ng-if="startDate.month() !== endDate.month()">
+        from {{ startDate.format('MMMM YYYY') }} to {{ endDate.format('MMMM YYYY') }}
+    </span>
+</h2>
 
 
-<hr>
-
-<label>
+<label class="right">
     Filter:
     <input type="text" ng-model="filterText" />
 </label>
 
-<button ng-click="showReviewed = !showReviewed">{{ showReviewed ? 'Hide' : 'Show'  }} reviewed</button>
+<div>
+    Last
+    <button ng-click="setRange(30)">30</button>
+    <button ng-click="setRange(60)">60</button>
+    <button ng-click="setRange(90)">90</button> days
+    &mdash;
+    <button ng-click="setRange('month')">This Month</button>
+    <button ng-click="setRange('months', -1)">Last Month</button>
+    <button ng-click="setRange('months', 1)">Next Month</button>
+    <button ng-click="setRange('year')">This Year</button>
+    &mdash;
+    <button ng-click="showReviewed = !showReviewed">{{ showReviewed ? 'Hide' : 'Show'  }} reviewed</button>
+</div>
 
-<hr>
-
-<table class="pure-table">
+<table class="pure-table clear">
     <thead>
         <tr>
-            <th scope="col">Name <button ng-click="sortCol('name')">Sort</button></th>
-            <th scope="col">Category <button ng-click="sortCol('category')">Sort</button></th>
-            <th scope="col">Date <button ng-click="sortCol('date')">Sort</button></th>
-            <th scope="col">Account <button ng-click="sortCol('account')">Sort</button></th>
-            <th scope="col">Amount <button ng-click="sortCol('amount')">Sort</button></th>
-            <th scope="col">Reviewed <button ng-click="sortCol('reviewed')">Sort</button></th>
+            <th scope="col">Name <button ng-click="sortCol('name')" class="plain arrow up">Sort</button></th>
+            <th scope="col">Category <button ng-click="sortCol('category')" class="plain arrow up">Sort</button></th>
+            <th scope="col">Date <button ng-click="sortCol('date')" class="plain arrow up">Sort</button></th>
+            <th scope="col">Account <button ng-click="sortCol('account')" class="plain arrow up">Sort</button></th>
+            <th scope="col">Amount <button ng-click="sortCol('amount')" class="plain arrow up">Sort</button></th>
+            <th scope="col">Reviewed <button ng-click="sortCol('reviewed')" class="plain arrow up">Sort</button></th>
             <th scope="col">Del</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="transaction in data.transactions |  orderBy:predicate:reverse | filter:filterText | filter:inRange" ng-if="!transaction.reviewed || showReviewed">
-            <th scope="row"  class="transaction-name">{{ transaction.name }}</th>
+        <tr ng-repeat="transaction in transactions | orderBy:predicate:reverse | filter:filterText | filter:inRange track by transaction.$id" ng-if="!transaction.reviewed || showReviewed">
+            <th scope="row" class="transaction-name">{{ transaction.name }}</th>
             <td class="transaction-category">
                 <span ng-if="!transaction.reviewed">{{ transaction.category }}</span>
-                <select ng-model="transaction.category">
-                    <option ng-repeat="category in data.categories" value="{{category.name}}" ng-selected="category.name == transaction.category">{{ category.name }}</option>
-                </select>
+                <select ng-model="transaction.category" ng-options="category.name as category.name for category in categories" ng-change="transactions.$save(transaction)"></select>
             </td>
             <td class="transaction-date">{{ transaction.date | date:'short' }}</td>
             <td class="transaction-account">
@@ -55,7 +54,7 @@ Current Month: {{ startDate.format('MMM') }}
             <td class="transaction-amount">{{ transaction.amount | currency }}</td>
             <td class="transaction-reviewed">
                 <label class="reviewed-item">
-                    <input type="checkbox" ng-model="transaction.reviewed" />
+                    <input type="checkbox" ng-model="transaction.reviewed" ng-click="transactions.$save(transaction)" />
                 </label>
             </td>
             <td class="transaction-delete"><button ng-click="deleteTransaction(transaction)">x</button></td>

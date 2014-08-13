@@ -1,6 +1,7 @@
 angular.module('budget.transactions', [])
-.controller('transactionsCtrl', function ($scope, data) {
-    data.$bindTo($scope, 'data');
+.controller('transactionsCtrl', function ($scope, transactions, categories) {
+    $scope.transactions = transactions;
+    $scope.categories = categories;
 
     $scope.reverse = true;
     $scope.predicate = 'date';
@@ -51,7 +52,6 @@ angular.module('budget.transactions', [])
 
     $scope.deleteTransaction = function (transaction) {
         if (confirm('Delete?')) {
-            // console.log(transaction);
             transactions.$remove(transaction.$id);
         }
     };

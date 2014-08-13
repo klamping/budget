@@ -8,24 +8,46 @@ body {
     padding: 1em;
 }
 
-button {
+.plain {
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    background: transparent;
+}
+button:not(.plain) {
     border: 1px solid #369;
     border-radius: 2px;
     background: #0078e7;
     color: #fff;
 }
-button:hover,
-button:focus {
+button:not(.plain):hover,
+button:not(.plain):focus {
     background: #09e;
 }
 
-table tr:hover {
+table {
+    margin-top: 1em;
+    width: 100%;
+}
+
+table thead {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    white-space: nowrap;
+    top: 0;
+}
+
+table tbody tr:hover {
     background: #eee;
 }
 
 table td {
     position: relative;
 }
+
 .reviewed-item {
     display: block;
     position: absolute;
@@ -44,15 +66,28 @@ table td {
     text-align: left;
 }
 
-
 .arrow {
     width: 0;
     height: 0;
     border: 5px solid transparent;
+    vertical-align: middle;
+    position: relative;
 }
-.arrow-up {
+.arrow.up {
+    top: -3px;
     border-bottom-color: #0078e7;
 }
-.arrow-down {
+.arrow.down {
+    top: 2px;
     border-top-color: #0078e7;
+}
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.clear {
+    clear: both;
 }

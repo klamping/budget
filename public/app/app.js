@@ -23,9 +23,15 @@ angular.module('budget', ['firebase', 'ui.router', 'ui.bootstrap', 'budget.trans
             url: '/overview',
             templateUrl: '/app/overview/overview.html',
             resolve: {
-                data: function ($firebase) {
-                    var sync = $firebase(fireRef).$asObject();
-                    return sync.$loaded();
+                transactions: function ($firebase) {
+                    var ref = new Firebase('https://vinlam-budget.firebaseio.com/transactions')
+
+                    return $firebase(ref).$asArray().$loaded();
+                },
+                categories: function ($firebase) {
+                    var ref = new Firebase('https://vinlam-budget.firebaseio.com/categories');
+
+                    return $firebase(ref).$asArray().$loaded();
                 }
             }
         })
