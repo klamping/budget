@@ -13,6 +13,10 @@ var fireRef = new Firebase('https://vinlam-budget.firebaseio.com/');
 app.use(express.static('public'));
 app.use(express.bodyParser());
 
+var categories: {
+    'Credit Card Payments': 'Bills'
+};
+
 app.post('/transactions', function(req, res) {
     var account = req.param('account');
 
@@ -29,6 +33,9 @@ app.post('/transactions', function(req, res) {
             delete data.blankA;
             delete data.blankB;
             delete data.posted;
+            
+            // convert categories
+            
             data.account = account;
             transactions.push(data);
         });
